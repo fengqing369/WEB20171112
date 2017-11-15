@@ -17,29 +17,29 @@ var app = express();
 app.use(session({
     secret: 'itcast-secret',
     name: 'itcast-name',
-    cookie: { maxAge: 8000000000 },
+    cookie: {maxAge: 8000000000},
     resave: false,
     saveUninitialized: true
 }));
 
 app.use(function (req, res, next) {
     var url = req.originalUrl;
-    if (!req.session.employee
-        && ((url.indexOf('/backEnd') > -1 && url.indexOf('.html') > -1) || url == '/admin/' )
-        && url.indexOf('/backEnd/login.html') == -1) {
+    /*if (!req.session.employee
+        && ((url.indexOf('/admin') > -1 && url.indexOf('.html') > -1) || url == '/admin/' )
+        && url.indexOf('/admin/login.html') == -1) {
+        return res.redirect('/admin/login.html');
+    }else */if(!req.session.employee
+        && ((url.indexOf('/backEnd') > -1 && url.indexOf('.html') > -1) || url == '/admin33/' )
+        && url.indexOf('/backEnd/login.html') == -1){
         return res.redirect('/backEnd/login.html');
-    }//else if (!req.session.employee
-    //     && ((url.indexOf('/admin33') > -1 && url.indexOf('.html') > -1) || url == '/admin33/')
-    //     && url.indexOf('/admin33/login.html') == -1) {
-    //     return res.redirect('/admin33/login.html');
-    // }
+    }
     next();
 });
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
